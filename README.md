@@ -2,12 +2,20 @@
 
 Simple vanilla terraria server
 
+## Prerequisites
+docker and docker-compose installed
+
 ## Create initial world
-Go into the same directoryFirst create a new world by running this command and following prompts. Ctrl+C to exit after creating the world.
-The world file can be found in a newly created `config` folder in the same directory.
+Go into the same directoryFirst create a new world by running this command and following prompts. 
 ```
-sudo docker run --rm -it -v ./config:/config --name=terraria beardedio/terraria
+sudo docker run --rm -it -v $PWD/config:/config --name=terraria beardedio/terraria
 ```
+After answering a few prompts it will return to the world screen which shows your newly created world as option 1.
+Ctrl+C to exit when you finish with all the prompts.
+The newely created world file can be found in the `config` folder in the same directory.
+
+## Setting a password for the server
+To set a password for the server or change any other settings go to `config/serverconfig.txt` and uncomment any lines to change. Restart the server for the change to take effect.
 
 ## Start up Server
 Start the server running in the background.
@@ -21,10 +29,8 @@ Open up terraria and go to Multiplayer. Select "Join via IP" then type the publi
 ## Troubleshooting
 After the server has started, you can check logs with `docker logs terraria`.
 
-1. Server is running but client is unable to connect
-// TODO try curling or PING to diagnose problems
-// TODO add info about firewalls
-// TODO potentially add a link to port forwarding article
+1. Error: Garbage collector could not allocate 16384 bytes of memory for major heap section.
+This happens when the server does not have enough memory to create or load the given world size. To get around it, choose a smaller world size or allocate more RAM to the server.
 
 1. NullReferenceException
 ```
